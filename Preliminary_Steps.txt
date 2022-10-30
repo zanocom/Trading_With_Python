@@ -1,0 +1,66 @@
+A Droplet is a sort of virtual machine used to run notebook server form remote.
+
+Before the creation of Droplet:
+- create hashed password:
+jupyter notebook --generate-config   #create file config in /home/USERNAME/.jupyter/jupyter_notebook_config.py
+
+from notebook.auth import passwd
+passwd()
+
+copy hashed password into config file
+c.NotebookApp.password = u'sha1:67c9e60bb8b6:9ffede0825894254b2e042ea597d771089e11aed'
+
+
+- create ssl certificate 
+- https://jupyter-notebook.readthedocs.io/en/stable/public_server.html#
+It is a good idea to also use SSL with a web certificate, so that your hashed password is not sent unencrypted by your browser.
+A self-signed certificate can be generated with openssl
+		
+openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout mykey.key -out mycert.pem
+
+
+- get code from https://github.com/yhilpisch/py4at chapter 2
+- clone jupyter_notebook_config.py into jupyter_server_config.py converting any notebook word into server 
+- add path to ssl certificates files
+
+		
+		
+- create SSH key
+ssh-keygen		
+usually saved in /home/username/.ssh
+
+		
+
+- create Droplet @DigitalOcean:
+- add SSH keys
+- get IP from Droplet
+
+- Install Python and Jupyter Server
+from py4at/ch02/cloud  bash setup.sh IP
+
+
+
+- ssh tunneling from local machine vs Droplet
+ssh -L 8888:localhost:8888 your_server_username@IP
+
+The ssh command opens an SSH connection, but -L specifies that the given port on 
+the local (client) host is to be forwarded to the given host and port on the remote side (server). 
+This means that whatever is running on the second port number (e.g. 8888) on t
+he server will appear on the first port number (e.g. 8888) on your local computer.
+
+
+server_username is your username (e.g. sammy) on the server which you created and your_server_ip is the IP address of your server.
+ssh -L 8888:localhost:8888 root@104.248.202.109
+
+
+run jupyter notebbok
+connect to jupyter notebook
+
+
+
+
+
+
+
+
+
